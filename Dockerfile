@@ -6,6 +6,6 @@ COPY . .
 
 #RUN pip install --no-cache-dir --upgrade -r /requirements.txt
 
-RUN pip insall Flask 
+RUN pip install Flask 
 
 CMD ["Flask", "run", "hello.py" ]
