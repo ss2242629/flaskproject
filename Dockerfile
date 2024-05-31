@@ -1,11 +1,21 @@
-FROM  python:3.9
-WORKDIR /flaskproject
+# Use the official Python image as base
+FROM python:3.9-slim
 
-#COPY ./requirements.txt /requirements.txt
-COPY . . 
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-#RUN pip install --no-cache-dir --upgrade -r /requirements.txt
+# Set the working directory in the container
+WORKDIR /
 
-RUN pip install Flask 
+# Copy the current directory contents into the container at /app
+COPY . .
 
-CMD ["Flask", "run", "hello.py" ]
+# Install Flask
+RUN pip install Flask
+
+# Expose the port the app runs on
+EXPOSE 5000
+
+# Run the Flask application
+CMD ["flask", "run", "--host=0.0.0.0"]
