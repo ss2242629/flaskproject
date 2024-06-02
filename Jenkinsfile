@@ -40,7 +40,7 @@ pipeline {
                     sshagent(credentials: ['ssh_cred']) {
                         // SSH into remote server and run Docker commands
                         sh """
-                               ssh ${username}@${ip} '
+                               ssh -o StrictHostKeyChecking=no ${username}@${ip} '
                                 docker stop flaskproject &&
                                 docker rm flaskproject &&
                                 docker run --restart always --name flaskproject -p 5000:5000 -d subedishiva61/flaskproject:${env.BUILD_NUMBER}
