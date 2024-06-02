@@ -33,11 +33,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    def ip = 'ip'
-                    def username = 'ssh_username'
+                    // def ip = 'ip'
+                    // def username = 'ssh_username'
 
                     // Use SSH agent credentials configured in Jenkins
-                    sshagent(credentials: ['ssh_cred']) {
+                    sshagent() {
                         // SSH into remote server and run Docker commands
                         sh """
                             ssh ${username}@${prod_ip} '
