@@ -33,20 +33,20 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // def ip = '18.222.65.79'
-                    // def username = 'ubuntu'
+                    def ip = '18.222.65.79'
+                    def username = 'ubuntu'
 
                     // Use SSH agent credentials configured in Jenkins
-                    // sshagent(credentials: ['ssh_cred']) {
-                    //     // SSH into remote server and run Docker commands
-                    //     sh """
-                    //         ssh ${username}@${prod_ip} '
+                    sshagent(credentials: ['ssh_cred']) {
+                        // SSH into remote server and run Docker commands
+                        sh """
+                               ssh ${username}@${prod_ip} '
                                 docker stop flaskproject &&
                                 docker rm flaskproject &&
                                 docker run --restart always --name flaskproject -p 8080:8080 -d subedishiva61/flaskproject:${env.BUILD_NUMBER}
-                        //     '
-                        // """
-                    // }
+                            '
+                        """
+                    }
                 }
             }
         }
