@@ -29,5 +29,28 @@ pipeline {
                 }
             }
         }
+        
+        stage('Deploy') {
+            steps {
+                script {
+                    def ip = 'ip'
+                    def username = 'ssh_username'
+
+                    // Use SSH agent credentials configured in Jenkins
+                    sshagent(credentials: ['ssh_cred']) {
+                        // SSH into remote server and run Docker commands
+                        sh """
+                            ssh ${username}@${prod_ip} '
+                                docker pull <>:${env.BUILD_NUMBER} &&
+                                docker stop <>&&
+                                docker rm <>&&
+                                docker run --restart always --name <> -p 8080:8080 -d <>:${env.BUILD_NUMBER}
+                            '
+                        """
+                    }
+                }
+            }
+        }
     }
 }
+

@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: flaskapp
-        image: subedishiva61/flaskproject:v1
+        image: subedishiva61/flaskproject:6
         ports:
         - containerPort: 80
